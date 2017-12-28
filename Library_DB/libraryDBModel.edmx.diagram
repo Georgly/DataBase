@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f82564e638c943a18415e95cc7779c0e" Name="Diagram1">
+        <EntityTypeShape EntityType="TestDBModel.Author" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestDBModel.Author_Book" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestDBModel.Book" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestDBModel.Bookmark" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestDBModel.Library_user" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestDBModel.Publishing_house" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestDBModel.User_Book" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="TestDBModel.Author_Book_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="TestDBModel.Author_Book_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="TestDBModel.Book_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="TestDBModel.Bookmark_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="TestDBModel.User_Book_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="TestDBModel.Bookmark_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="TestDBModel.User_Book_fk0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

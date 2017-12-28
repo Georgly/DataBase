@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TestDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="ID_Author" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="ID_Author" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Author_Book">
+          <Key>
+            <PropertyRef Name="ID_Author" />
+            <PropertyRef Name="ID_Book" />
+          </Key>
+          <Property Name="ID_Author" Type="int" Nullable="false" />
+          <Property Name="ID_Book" Type="int" Nullable="false" />
+          <Property Name="Publishing_day" Type="int" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ID_Book" />
+          </Key>
+          <Property Name="ID_Book" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Gener" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ID_Publisher" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="ID_Bookmark" />
+          </Key>
+          <Property Name="ID_Bookmark" Type="int" Nullable="false" />
+          <Property Name="Page" Type="int" Nullable="false" />
+          <Property Name="ID_Book" Type="int" Nullable="false" />
+          <Property Name="ID_Library_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Library_user">
+          <Key>
+            <PropertyRef Name="ID_Library_user" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ID_Library_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publishing_house">
+          <Key>
+            <PropertyRef Name="ID_Publish" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ID_Publish" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Book">
+          <Key>
+            <PropertyRef Name="ID_Library_user" />
+            <PropertyRef Name="ID_Book" />
+          </Key>
+          <Property Name="ID_Library_user" Type="int" Nullable="false" />
+          <Property Name="ID_Book" Type="int" Nullable="false" />
+          <Property Name="Limit_day" Type="int" />
+        </EntityType>
+        <Association Name="Author_Book_fk0">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="ID_Author" />
+            </Principal>
+            <Dependent Role="Author_Book">
+              <PropertyRef Name="ID_Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Author_Book_fk1">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID_Book" />
+            </Principal>
+            <Dependent Role="Author_Book">
+              <PropertyRef Name="ID_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Book_fk0">
+          <End Role="Publishing_house" Type="Self.Publishing_house" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishing_house">
+              <PropertyRef Name="ID_Publish" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="ID_Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bookmark_fk0">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID_Book" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="ID_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bookmark_fk1">
+          <End Role="Library_user" Type="Self.Library_user" Multiplicity="1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library_user">
+              <PropertyRef Name="ID_Library_user" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="ID_Library_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Book_fk0">
+          <End Role="Library_user" Type="Self.Library_user" Multiplicity="1" />
+          <End Role="User_Book" Type="Self.User_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library_user">
+              <PropertyRef Name="ID_Library_user" />
+            </Principal>
+            <Dependent Role="User_Book">
+              <PropertyRef Name="ID_Library_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Book_fk1">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="User_Book" Type="Self.User_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID_Book" />
+            </Principal>
+            <Dependent Role="User_Book">
+              <PropertyRef Name="ID_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TestDBModelContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Author_Book" EntityType="Self.Author_Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookmark" EntityType="Self.Bookmark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Library_user" EntityType="Self.Library_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publishing_house" EntityType="Self.Publishing_house" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Book" EntityType="Self.User_Book" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Author_Book_fk0" Association="Self.Author_Book_fk0">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Author_Book" EntitySet="Author_Book" />
+          </AssociationSet>
+          <AssociationSet Name="Author_Book_fk1" Association="Self.Author_Book_fk1">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Author_Book" EntitySet="Author_Book" />
+          </AssociationSet>
+          <AssociationSet Name="Book_fk0" Association="Self.Book_fk0">
+            <End Role="Publishing_house" EntitySet="Publishing_house" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="Bookmark_fk0" Association="Self.Bookmark_fk0">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="Bookmark_fk1" Association="Self.Bookmark_fk1">
+            <End Role="Library_user" EntitySet="Library_user" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="User_Book_fk0" Association="Self.User_Book_fk0">
+            <End Role="Library_user" EntitySet="Library_user" />
+            <End Role="User_Book" EntitySet="User_Book" />
+          </AssociationSet>
+          <AssociationSet Name="User_Book_fk1" Association="Self.User_Book_fk1">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="User_Book" EntitySet="User_Book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="ID_Author" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Author" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Author_Book" Relationship="Self.Author_Book_fk0" FromRole="Author" ToRole="Author_Book" />
+        </EntityType>
+        <EntityType Name="Author_Book">
+          <Key>
+            <PropertyRef Name="ID_Author" />
+            <PropertyRef Name="ID_Book" />
+          </Key>
+          <Property Name="ID_Author" Type="Int32" Nullable="false" />
+          <Property Name="ID_Book" Type="Int32" Nullable="false" />
+          <Property Name="Publishing_day" Type="Int32" />
+          <NavigationProperty Name="Author" Relationship="Self.Author_Book_fk0" FromRole="Author_Book" ToRole="Author" />
+          <NavigationProperty Name="Book" Relationship="Self.Author_Book_fk1" FromRole="Author_Book" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ID_Book" />
+          </Key>
+          <Property Name="ID_Book" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gener" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Publisher" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Author_Book" Relationship="Self.Author_Book_fk1" FromRole="Book" ToRole="Author_Book" />
+          <NavigationProperty Name="Publishing_house" Relationship="Self.Book_fk0" FromRole="Book" ToRole="Publishing_house" />
+          <NavigationProperty Name="Bookmark" Relationship="Self.Bookmark_fk0" FromRole="Book" ToRole="Bookmark" />
+          <NavigationProperty Name="User_Book" Relationship="Self.User_Book_fk1" FromRole="Book" ToRole="User_Book" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="ID_Bookmark" />
+          </Key>
+          <Property Name="ID_Bookmark" Type="Int32" Nullable="false" />
+          <Property Name="Page" Type="Int32" Nullable="false" />
+          <Property Name="ID_Book" Type="Int32" Nullable="false" />
+          <Property Name="ID_Library_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.Bookmark_fk0" FromRole="Bookmark" ToRole="Book" />
+          <NavigationProperty Name="Library_user" Relationship="Self.Bookmark_fk1" FromRole="Bookmark" ToRole="Library_user" />
+        </EntityType>
+        <EntityType Name="Library_user">
+          <Key>
+            <PropertyRef Name="ID_Library_user" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Library_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookmark" Relationship="Self.Bookmark_fk1" FromRole="Library_user" ToRole="Bookmark" />
+          <NavigationProperty Name="User_Book" Relationship="Self.User_Book_fk0" FromRole="Library_user" ToRole="User_Book" />
+        </EntityType>
+        <EntityType Name="Publishing_house">
+          <Key>
+            <PropertyRef Name="ID_Publish" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Publish" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.Book_fk0" FromRole="Publishing_house" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="User_Book">
+          <Key>
+            <PropertyRef Name="ID_Library_user" />
+            <PropertyRef Name="ID_Book" />
+          </Key>
+          <Property Name="ID_Library_user" Type="Int32" Nullable="false" />
+          <Property Name="ID_Book" Type="Int32" Nullable="false" />
+          <Property Name="Limit_day" Type="Int32" />
+          <NavigationProperty Name="Book" Relationship="Self.User_Book_fk1" FromRole="User_Book" ToRole="Book" />
+          <NavigationProperty Name="Library_user" Relationship="Self.User_Book_fk0" FromRole="User_Book" ToRole="Library_user" />
+        </EntityType>
+        <Association Name="Author_Book_fk0">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="ID_Author" />
+            </Principal>
+            <Dependent Role="Author_Book">
+              <PropertyRef Name="ID_Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Author_Book_fk1">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID_Book" />
+            </Principal>
+            <Dependent Role="Author_Book">
+              <PropertyRef Name="ID_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Book_fk0">
+          <End Role="Publishing_house" Type="Self.Publishing_house" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishing_house">
+              <PropertyRef Name="ID_Publish" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="ID_Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bookmark_fk0">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID_Book" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="ID_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Book_fk1">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="User_Book" Type="Self.User_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID_Book" />
+            </Principal>
+            <Dependent Role="User_Book">
+              <PropertyRef Name="ID_Book" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bookmark_fk1">
+          <End Role="Library_user" Type="Self.Library_user" Multiplicity="1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library_user">
+              <PropertyRef Name="ID_Library_user" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="ID_Library_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Book_fk0">
+          <End Role="Library_user" Type="Self.Library_user" Multiplicity="1" />
+          <End Role="User_Book" Type="Self.User_Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library_user">
+              <PropertyRef Name="ID_Library_user" />
+            </Principal>
+            <Dependent Role="User_Book">
+              <PropertyRef Name="ID_Library_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Author" EntityType="Self.Author" />
+          <EntitySet Name="Author_Book" EntityType="Self.Author_Book" />
+          <EntitySet Name="Book" EntityType="Self.Book" />
+          <EntitySet Name="Bookmark" EntityType="Self.Bookmark" />
+          <EntitySet Name="Library_user" EntityType="Self.Library_user" />
+          <EntitySet Name="Publishing_house" EntityType="Self.Publishing_house" />
+          <EntitySet Name="User_Book" EntityType="Self.User_Book" />
+          <AssociationSet Name="Author_Book_fk0" Association="Self.Author_Book_fk0">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Author_Book" EntitySet="Author_Book" />
+          </AssociationSet>
+          <AssociationSet Name="Author_Book_fk1" Association="Self.Author_Book_fk1">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Author_Book" EntitySet="Author_Book" />
+          </AssociationSet>
+          <AssociationSet Name="Book_fk0" Association="Self.Book_fk0">
+            <End Role="Publishing_house" EntitySet="Publishing_house" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="Bookmark_fk0" Association="Self.Bookmark_fk0">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="User_Book_fk1" Association="Self.User_Book_fk1">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="User_Book" EntitySet="User_Book" />
+          </AssociationSet>
+          <AssociationSet Name="Bookmark_fk1" Association="Self.Bookmark_fk1">
+            <End Role="Library_user" EntitySet="Library_user" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="User_Book_fk0" Association="Self.User_Book_fk0">
+            <End Role="Library_user" EntitySet="Library_user" />
+            <End Role="User_Book" EntitySet="User_Book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TestDBModelContainer" CdmEntityContainer="TestDBEntities">
+          <EntitySetMapping Name="Author">
+            <EntityTypeMapping TypeName="TestDBModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Author" ColumnName="ID_Author" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Author_Book">
+            <EntityTypeMapping TypeName="TestDBModel.Author_Book">
+              <MappingFragment StoreEntitySet="Author_Book">
+                <ScalarProperty Name="ID_Author" ColumnName="ID_Author" />
+                <ScalarProperty Name="ID_Book" ColumnName="ID_Book" />
+                <ScalarProperty Name="Publishing_day" ColumnName="Publishing_day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="TestDBModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="ID_Book" ColumnName="ID_Book" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gener" ColumnName="Gener" />
+                <ScalarProperty Name="ID_Publisher" ColumnName="ID_Publisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookmark">
+            <EntityTypeMapping TypeName="TestDBModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmark">
+                <ScalarProperty Name="ID_Bookmark" ColumnName="ID_Bookmark" />
+                <ScalarProperty Name="Page" ColumnName="Page" />
+                <ScalarProperty Name="ID_Book" ColumnName="ID_Book" />
+                <ScalarProperty Name="ID_Library_user" ColumnName="ID_Library_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Library_user">
+            <EntityTypeMapping TypeName="TestDBModel.Library_user">
+              <MappingFragment StoreEntitySet="Library_user">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Library_user" ColumnName="ID_Library_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishing_house">
+            <EntityTypeMapping TypeName="TestDBModel.Publishing_house">
+              <MappingFragment StoreEntitySet="Publishing_house">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Publish" ColumnName="ID_Publish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Book">
+            <EntityTypeMapping TypeName="TestDBModel.User_Book">
+              <MappingFragment StoreEntitySet="User_Book">
+                <ScalarProperty Name="ID_Library_user" ColumnName="ID_Library_user" />
+                <ScalarProperty Name="ID_Book" ColumnName="ID_Book" />
+                <ScalarProperty Name="Limit_day" ColumnName="Limit_day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
